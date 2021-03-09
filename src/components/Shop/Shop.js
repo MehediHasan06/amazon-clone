@@ -8,14 +8,17 @@ const Shop = () => {
   const first10Data = fakeData.slice(0, 10); // Getting only the first 10 datas
   const [products, setProducts] = useState(first10Data);
 
+  const handleAdd = (productItem) => {
+    console.log("product added", productItem);
+  }; //handler should be in the same file as useState
+
   return (
     <>
       <div className={styles.shopContainer}>
-
         <div className={styles.productContainer}>
-            {products.map((item) => (
-              <Product productItem={item} /> // Sending the values as props
-            ))}
+          {products.map((item) => (
+            <Product productItem={item} eventHandler={handleAdd} /> // Sending the product values & event handler as props
+          ))}
         </div>
 
         <div className={styles.cartContainer}>

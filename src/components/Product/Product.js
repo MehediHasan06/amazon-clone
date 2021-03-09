@@ -1,6 +1,7 @@
 import styles from "./Product.module.css";
+import { IoMdCart } from "react-icons/io";
 
-const Product = ({ productItem }) => {
+const Product = ({ productItem, eventHandler }) => {
   const { name, price, img, seller, stock } = productItem; //
   return (
     <>
@@ -19,6 +20,11 @@ const Product = ({ productItem }) => {
           <p>
             <small>Only {stock} left in stock - Order soon</small>
           </p>
+          <button className={styles.mainButton} onClick={()=> eventHandler(productItem)}> 
+          {/** we have to pass a parameter from here to identify which product's button is clicked from shop component's event handler function. we can not pass a parameter, eventHandler(props.product) just like that. Cause, eventHandler() this thing invokes a function whenever we call them. That is why, when we have to pass a parameter from a dynamic object, we have to invoke a array function.
+          So, when we click the button, this eventHandler will send the "productItem" as props. **/}
+            <IoMdCart /> Add to Cart
+          </button>
         </div>
       </div>
     </>
