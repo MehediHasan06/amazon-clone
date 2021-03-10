@@ -3,13 +3,16 @@ import { useState } from "react";
 import styles from "./Shop.module.css";
 
 import Product from "../Product/Product";
+import Cart from "../Cart/Cart";
 
 const Shop = () => {
   const first10Data = fakeData.slice(0, 10); // Getting only the first 10 datas
   const [products, setProducts] = useState(first10Data);
+  const [cart, setCart] = useState([]);
 
   const handleAdd = (productItem) => {
-    console.log("product added", productItem);
+    const newCart = [...cart, productItem];
+    setCart(newCart);
   }; //handler should be in the same file as useState
 
   return (
@@ -22,7 +25,9 @@ const Shop = () => {
         </div>
 
         <div className={styles.cartContainer}>
-          <h3>This is cart</h3>
+          <Cart cartItems = {cart}>
+            
+          </Cart>
         </div>
       </div>
     </>
