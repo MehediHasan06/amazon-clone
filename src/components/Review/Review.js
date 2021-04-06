@@ -5,14 +5,23 @@ import fakeData from "../../fakeData";
 import {
   getDatabaseCart,
   removeFromDatabaseCart,
+  processOrder
 } from "../../utilities/databaseManager";
 import ReviewItem from "../ReviewItem/ReviewItem";
 import Cart from "../Cart/Cart";
+import happyImage from '../../images/giphy.gif';
 
 // We are using browser's local storage to save the cart product.
 
 const Review = () => {
   const [cart, setCart] = useState([]);
+  const [orderPlaced, setOrderPlaced] = useState(false);
+
+  const handlePlaceOrder = () => {
+    setCart([]);
+    setOrderPlaced(true);
+    processOrder();
+}
 
   const removeProduct = (productKey) => {
     const newCart = cart.filter((pd) => pd.key !== productKey);
@@ -36,15 +45,22 @@ const Review = () => {
     setCart(cardProducts);
   }, []);
 
+  let thankyou;
+  if(orderPlaced){
+      thankyou = <img src={happyImage} alt=""/>
+  }
   return (
     <div className={styles.shopContainer}>
       <div className={styles.productContainer}>
         {cart.map((pd) => (
           <ReviewItem key={pd.key} removeProduct={removeProduct} product={pd} />
         ))}
+        { thankyou }
       </div>
       <div className={styles.cartContainer}>
-        <Cart cartItems={cart}/>
+        <Cart cartItems={cart}>
+          <button onClick={handlePlaceOrder} className="main-button">Place Order</button>
+        </Cart>
       </div>
     </div>
   );

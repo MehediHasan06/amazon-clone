@@ -1,5 +1,4 @@
 import styles from "./Cart.module.css";
-import { Link } from 'react-router-dom';
 
 const Cart = (props) => {
     const cart = props.cartItems;
@@ -35,7 +34,11 @@ const Cart = (props) => {
             <p><small>Shiiping Cost: {shipping}</small></p>
             <p><small>Tax + VAT: {tax}</small></p>
             <p>Total Price: {grandTotal}</p>
-            <Link to="/review"><button className={styles.mainButton}>Show Review</button></Link>
+            <br/>
+            {/* Getting The props from shop. */}
+            {
+                props.children
+            }
         </div>
     );
 };

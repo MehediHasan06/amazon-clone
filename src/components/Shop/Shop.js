@@ -1,7 +1,12 @@
 import fakeData from "../../fakeData";
-import { addToDatabaseCart, getDatabaseCart } from "../../utilities/databaseManager";
+import {
+  addToDatabaseCart,
+  getDatabaseCart,
+} from "../../utilities/databaseManager";
 import { useState, useEffect } from "react";
 import styles from "./Shop.module.css";
+import { Link } from 'react-router-dom';
+
 
 import Product from "../Product/Product";
 import Cart from "../Cart/Cart";
@@ -21,7 +26,7 @@ const Shop = () => {
     });
     setCart(previousCart);
   }, []);
-  
+
   // Handle the product quantity
   const handleAdd = (productItem) => {
     const toBeAddedKey = productItem.key;
@@ -59,7 +64,12 @@ const Shop = () => {
 
         {/*cart Container*/}
         <div className={styles.cartContainer}>
-          <Cart cartItems={cart}></Cart>
+          <Cart cartItems={cart}>
+            {/* This will automatically pass the props as children */}
+            <Link to="/review"> 
+              <button className="main-button">Review Order</button>
+            </Link>
+          </Cart>
         </div>
       </div>
     </>
