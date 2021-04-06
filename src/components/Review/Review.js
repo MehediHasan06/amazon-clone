@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import styles from "./Review.module.css";
+
 import fakeData from "../../fakeData";
-import { getDatabaseCart, removeFromDatabaseCart } from "../../utilities/databaseManager";
+import {
+  getDatabaseCart,
+  removeFromDatabaseCart,
+} from "../../utilities/databaseManager";
 import ReviewItem from "../ReviewItem/ReviewItem";
+import Cart from "../Cart/Cart";
 
 // We are using browser's local storage to save the cart product.
 
@@ -9,10 +15,10 @@ const Review = () => {
   const [cart, setCart] = useState([]);
 
   const removeProduct = (productKey) => {
-    const newCart = cart.filter(pd => pd.key !== productKey);
+    const newCart = cart.filter((pd) => pd.key !== productKey);
     setCart(newCart);
     removeFromDatabaseCart(productKey);
-}
+  };
 
   useEffect(() => {
     //cart
@@ -31,13 +37,15 @@ const Review = () => {
   }, []);
 
   return (
-    <div>
-      {cart.map((pd) => (
-        <ReviewItem 
-          key={pd.key} 
-          removeProduct = {removeProduct}
-          product={pd} />
-      ))}
+    <div className={styles.shopContainer}>
+      <div className={styles.productContainer}>
+        {cart.map((pd) => (
+          <ReviewItem key={pd.key} removeProduct={removeProduct} product={pd} />
+        ))}
+      </div>
+      <div className={styles.cartContainer}>
+        <Cart cartItems={cart}/>
+      </div>
     </div>
   );
 };
